@@ -14,10 +14,10 @@ print(df.columns)
 print(df.isna().sum())
 
 df.drop(columns=['director'], inplace=True) # Removed 'director' column as it was containing many null values
-df['country'] = df['country'].fillna("Unknown", inplace=True)   # Filled null values with 'Unknown'
-df['cast'] = df['cast'].fillna("Not Available", inplace=True)   # Filled null values with 'Not Available'
-df['date_added'] = df['date_added'].fillna(method='ffill', inplace=True)    # Data was filled with previous entry's date
-df['rating'] = df['rating'].fillna(df['rating'].mode()[0], inplace=True)    # Filled wih mode of 'rating' column values
+df['country'] = df['country'].fillna("Unknown")   # Filled null values with 'Unknown'
+df['cast'] = df['cast'].fillna("Not Available")   # Filled null values with 'Not Available'
+df['date_added'] = df['date_added'].ffill()    # Data was filled with previous entry's date
+df['rating'] = df['rating'].fillna(df['rating'].mode()[0])    # Filled wih mode of 'rating' column values
 df.dropna(inplace=True) # Droped rest of columns with null entries
 
 print(df.isna().sum())
