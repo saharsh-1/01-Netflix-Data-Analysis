@@ -56,3 +56,29 @@ print("Most Popular Genres:\n", df['listed_in'].value_counts().head(10))
 df['type'].value_counts().plot(kind='bar')
 plt.title("Movies vs TV Shows")
 plt.show()
+
+# ======================
+# 5. Advanced Analysis + Feature Engineering
+# ======================
+
+# Fix 'date_added' format
+df['date_added'] = df['date_added'].str.strip()
+
+# Convert 'date_added' to datetime
+df['date_added'] = pd.to_datetime(df['date_added'], errors='coerce')
+print(df['date_added'].isna().sum())
+
+# Extract Year & Month
+df['year_added'] = df['date_added'].dt.year
+df['month_added'] = df['date_added'].dt.month
+
+# Content Added per Year
+print(df['year_added'].value_counts().sort_index())
+
+# Movies vs TV Shows per Year
+print(df.groupby(['year_added', 'type']).size())
+
+# Visualization
+df['year_added'].value_counts().sort_index().plot()
+plt.title("Content Added Over Years")
+plt.show()
